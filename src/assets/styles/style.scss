@@ -1,7 +1,54 @@
-body {
-  background-color: #000000;
-  font-family: 'Roboto', sans-serif;
+@import "./mixins.scss";
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #787474;
+  font-family: 'Samsung Sharp Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+}
+
+.main_fon {
+  width: 100%;
+}
+
+.header {
+  position: absolute; 
+  top: 0;
+  width: 100%; 
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px 79px 0; 
+
+  @include onDesktop {
+    padding: 20px 25px 0;
+  };
+
+  @include onPhone {
+    padding: 10px 15px 0;
+  };
+}
+
+.logo {
+  height: 43px;
+
+  @include onDesktop {
+    height: 36px;
+  };
+
+  @include onPhone {
+    height: 20px;
+  };
 }
