@@ -1,5 +1,4 @@
 @import "./mixins.scss";
-
 @font-face {
   font-family: 'Samsung One LCG';
   src: local('../../fonts/SamsungOne-400/Samsung One LCG 400'), local('../../fonts/SamsungOne-400/Samsung-One-LCG-400'),
@@ -169,7 +168,6 @@ body {
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
   }
-
 }
 
 .small_massage {
@@ -231,7 +229,6 @@ body {
     @include onDesktop {
       font-size: 3vw;
       padding-top: 6px;
-
     }
 
     @include onTablet {
@@ -333,7 +330,7 @@ body {
 
 .text_slider-container {
   opacity: 0;
-};
+}
 
 .text-block {
   padding-bottom: 45px;
@@ -365,7 +362,7 @@ body {
 
   &-l::after {
     content: '<';
-  };
+  }
 
   @include onDesktop {
     font-size: 20px;

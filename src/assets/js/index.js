@@ -21,7 +21,7 @@ tl.fromTo('.logo_samsung',
     x: 0,
     y: 20,
     duration: 1,
-  }
+  },
 )
   .from('.second_part', {
     xPercent: -110,
@@ -77,7 +77,6 @@ tl.fromTo('.logo_samsung',
     duration: 0.4,
   }, "<");
 
-
 const button = document.querySelector('.button');
 
 button.addEventListener('click', function () {
@@ -94,7 +93,6 @@ button.addEventListener('click', function () {
   });
 });
 
-
 const textBlock = document.querySelector('.text-block');
 const mainDescription = document.querySelector('.main_description');
 const counterElement = document.getElementById('counter');
@@ -105,10 +103,8 @@ const nextButton = document.getElementById('next');
 const link = document.querySelector('.text-block-link');
 const textsArr = texts_content;
 const imgArr = slider_content;
-
 let currentSliderIndex = 0;
 let autoSlideInterval;
-
 
 function updateTxtSlide() {
   gsap.to(textBlock, { opacity: 0, duration: 0.3, onComplete: () => {
@@ -138,7 +134,7 @@ let isSlideVisible = true;
 function updateImgSlide() {
   const firstFrame = document.querySelector('.slider.first');
   const secondFrame = document.querySelector('.slider.next');
-  
+
   const opacityFirstFrame = isSlideVisible ? 0 : 1;
   const opacitySecondFrame = isSlideVisible ? 1 : 0;
 
@@ -164,7 +160,6 @@ function updateImgSlide() {
 
   isSlideVisible = !isSlideVisible;
 }
-
 
 function changeSlide(movSide) {
   if (currentSliderIndex + movSide > imgArr.length - 1) {
@@ -216,7 +211,6 @@ nextButton.addEventListener('click', () => {
 });
 
 setTimeout(() => startAutoSlider(true), 6000);
-
 
 // BUTTON ANIMATION
 
