@@ -41,9 +41,31 @@ body {
   overflow: hidden;
   padding: 45px 0 5px 45px;
 
-  @include onPhone {
-    padding: 25px 50px 5px 25px;
+  @include onDesktop {
+    padding: 35px 0 5px 35px;
   }
+
+  @include onTablet {
+    padding: 20px 0 5px 20px;
+  }
+
+  @include onPhone {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 5px 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(88,88,88);
+      background: linear-gradient(0deg, rgba(0,0,0,0.5887605042016807) 0%, rgba(61,61,61,0.5551470588235294) 56%, rgba(162,162,162,0.30024509803921573) 100%);
+      z-index: 0;
+    }
+  } 
 }
 
 .slider {
@@ -68,6 +90,10 @@ body {
   height: 100vh;
   background-color: rgb(255, 255, 255);
   z-index: 1;
+
+  @include onPhone {
+    display: none;
+  }
 }
 
 .header {
@@ -81,11 +107,16 @@ body {
   padding-right: 80px;
 
   @include onDesktop {
-    height: 35px;
+    height: 30px;
+  }
+
+  @include onTablet {
+    height: 22px;
   }
 
   @include onPhone {
     height: 20px;
+    padding-inline: 20px;
   }
 }
 
@@ -97,12 +128,16 @@ body {
 .kitchen-Logo {
   height: 60px;
 
-  @include onTablet {
+  @include onDesktop {
     height: 30px;
   }
 
+  @include onTablet {
+    height: 20px;
+  }
+
   @include onPhone {
-    height: 25px;
+    height: 20px;
   }
 }
 
@@ -117,21 +152,24 @@ body {
   z-index: 999;
 
   @include onDesktop {
-    font-size: 36px;
-    line-height: 40px;
+    top: 15%;
+    font-size: 30px;
+    line-height: 35px;
   }
 
   @include onTablet {
-    font-size: 26px;
-    line-height: 38px;
+    font-size: 20px;
+    line-height: 25px;
   }
 
   @include onPhone {
-    font-size: 25px;
-    line-height: 28px;
-    line-height: 34px;
-    top: 15%;
+    top: 10%;
+    font-size: 20px;
+    line-height: 32px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
   }
+
 }
 
 .small_massage {
@@ -140,9 +178,16 @@ body {
   color: rgb(255, 255, 255);
   font-size: 16px;
 
+  @include onDesktop {
+    font-size: 10px;
+  }
+
+  @include onTablet {
+    font-size: 8px;
+  }
+
   @include onPhone {
-    font-size: 9px;
-    color: rgb(128, 128, 128);
+    padding-left: 20px;
   }
 }
 
@@ -155,11 +200,27 @@ body {
 
 .secondary_description {
   position: absolute;
-  bottom: 6%;
+  bottom: 15%;
   color: rgb(255, 255, 255);
   font-weight: 400;
   font-size: 7vw;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
+  
+  @include onDesktop {
+    bottom: 6%;
+    font-size: 6vw;
+  }
+
+  @include onTablet {
+    bottom: 5%;
+  }
+
+  @include onPhone {
+    bottom: 20%;
+    width: 90%;
+    font-size: 40px;
+    padding-left: 20px;
+  }
 
   &-price {
     padding-top: 16px;
@@ -167,22 +228,19 @@ body {
     font-size: 4vw;
     font-weight: 600;
 
-    @include onPhone {
-      font-size: 25px;
+    @include onDesktop {
+      font-size: 3vw;
+      padding-top: 6px;
+
     }
-  }
 
-  @include onDesktop {
-    bottom: 14%;
-  }
+    @include onTablet {
+      padding-top: 0;
+    }
 
-  @include onTablet {
-    font-size: 50px;
-    bottom: 12%;
-  }
-
-  @include onPhone {
-    font-size: 35px;
+    @include onPhone {
+      font-size: 23px;
+    }
   }
 }
 
@@ -200,14 +258,26 @@ body {
   bottom: 10%;
   cursor: pointer;
 
+  @include onDesktop {
+    font-size: 30px;
+    height: 60px;
+    bottom: 8%;
+  }
+
   @include onTablet {
-    font-size: 19px;
-    height: 47px;
+    font-size: 20px;
+    height: 32px;
+    width: 20%;
+    bottom: 7%;
   }
 
   @include onPhone {
-    width: 145px;
-    height: 47px;
+    color: rgb(255, 255, 255);
+    border: 3px solid rgb(255, 255, 255);
+    font-size: 20px;
+    height: 40px;
+    width: 80%;
+    bottom: 10%;
   }
 }
 
@@ -219,8 +289,12 @@ body {
   color: rgb(42, 42, 42);
   font-size: 16px;
 
-  @include onPhone {
-    font-size: 9px;
+  @include onDesktop {
+    font-size: 10px;
+  }
+
+  @include onTablet {
+    font-size: 8px;
   }
 }
 
@@ -236,13 +310,24 @@ body {
   width: 40%;
 
   @include onDesktop {
-    font-size: 26px;
-    line-height: 39px;;
+    font-size: 18px;
+    line-height: 30px;
+    bottom: 20%;
+  }
+
+  @include onTablet {
+    font-size: 12px;
+    line-height: 18px;
+    bottom: 16%;
   }
 
   @include onPhone {
-    font-size: 20px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
+    font-size: 14px;
     line-height: 31px;
+    bottom: 20%;
+    width: 90%;
   }
 }
 
@@ -252,6 +337,22 @@ body {
 
 .text-block {
   padding-bottom: 45px;
+
+  @include onDesktop {
+    padding-bottom: 7px;
+  }
+
+  @include onTablet {
+    padding-bottom: 0px;
+  }
+}
+
+.text-block-link {
+  color: rgb(169, 169, 169);
+
+  @include onTablet {
+    color: rgb(209, 209, 209);
+  }
 }
 
 .swipe_button {
@@ -265,4 +366,29 @@ body {
   &-l::after {
     content: '<';
   };
+
+  @include onDesktop {
+    font-size: 20px;
+  }
+
+  @include onTablet {
+    font-size: 16px;
+  }
+
+  @include onPhone {
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
+  }
+}
+
+.counter-block{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  @include onPhone {
+    gap: 10px;
+    padding-top: 10px;
+  }
 }

@@ -2,6 +2,14 @@ import '../styles/style.scss';
 import { gsap } from "gsap";
 import { texts_content, slider_content} from './slider_content.js';
 
+function isMobileDevice() {
+  return window.innerWidth < 768;
+}
+
+function isDesktopDevice() {
+  return !isMobileDevice();
+}
+
 const tl = gsap.timeline();
 
 tl.fromTo('.logo_samsung',
@@ -24,17 +32,17 @@ tl.fromTo('.logo_samsung',
     duration: 1,
   })
   .from('.main_description-1line', {
-    xPercent: -110,
+    xPercent: -200,
     duration: 1,
      delay: 0.2,
-  }, "<")
+  })
   .from('.main_description-2line', {
-    xPercent: -110,
+    xPercent: -200,
     duration: 1,
     delay: 0.2,
   }, "<")
   .from('.main_description-3line', {
-    xPercent: -110,
+    xPercent: -200,
     duration: 1,
     delay: 0.4,
   }, "<")
@@ -42,19 +50,19 @@ tl.fromTo('.logo_samsung',
     width: '50%',
     duration: 1,
   })
-  .to('.slider', {
-    width: '50%',
-    backgroundPosition: '60% 30%',
-    right: 0,
-    duration: 1,
-  }, "<")
+  .call(() => {
+    if (isDesktopDevice()) {
+      gsap.to('.slider', {
+        width: '50%',
+        backgroundPosition: '60% 30%',
+        right: 0,
+        duration: 1,
+      }, "<");
+    }
+  })
   .to('.second_part', {
     opacity: 0,
     duration: 0.2,
-  })
-  .to('.main_description', {
-    y: 30,
-    duration: 0.3,
   })
   .to('.button', {
     opacity: 1,
@@ -88,23 +96,41 @@ button.addEventListener('click', function () {
 
 
 const textBlock = document.querySelector('.text-block');
+const mainDescription = document.querySelector('.main_description');
 const counterElement = document.getElementById('counter');
+const textInTextBlock = document.getElementById('text-block-txt')
 const slider = document.querySelector('.slider');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
+const link = document.querySelector('.text-block-link');
 const textsArr = texts_content;
 const imgArr = slider_content;
 
 let currentSliderIndex = 0;
 let autoSlideInterval;
 
+
 function updateTxtSlide() {
   gsap.to(textBlock, { opacity: 0, duration: 0.3, onComplete: () => {
-    textBlock.textContent = textsArr[currentSliderIndex];
-    gsap.to(textBlock, { opacity: 1, duration: 0.8 });
+    const textContent = textsArr[currentSliderIndex];
+    const linkContent = `<a href="https://www.samsung.com/ua/" class="text-block-link">Read More...</a>`;
+    textInTextBlock.innerHTML = `${textContent} ${linkContent}`;
+    gsap.to(textBlock, { opacity: 1, duration: 0.3 });
   }});
     
   counterElement.textContent = `${currentSliderIndex + 1}/${textsArr.length}`;
+
+  if (currentSliderIndex === 3) {
+    gsap.to(mainDescription, {
+      yPercent: -20,
+      duration: 0.3,
+    });
+  } else {
+    gsap.to(mainDescription, {
+      yPercent: 20,
+      duration: 0.3,
+    });
+  }
 }
 
 let isSlideVisible = true;
@@ -126,11 +152,13 @@ function updateImgSlide() {
 
   gsap.to(firstFrame, {
     opacity: opacityFirstFrame,
+    backgroundPositionY: '90%',
     duration: 0.5,
   });
 
   gsap.to(secondFrame, {
     opacity: opacitySecondFrame,
+    backgroundPositionY: '90%',
     duration: 0.5,
   });
 
@@ -151,40 +179,77 @@ function changeSlide(movSide) {
   updateImgSlide();
 }
 
+function scaleNavigateButtons(button) {
+  gsap.to(button, {
+    scale: 0.8,
+    duration: 0.3,
+    onComplete: function () {
+      gsap.to(button, {
+        scale: 1,
+        duration: 0.3,
+      });
+    }
+  });
+}
+
+
+function startAutoSlider(action) {
+  if (action) {
+    autoSlideInterval = setInterval(() => {
+      changeSlide(1);
+    }, 4000);
+  } else {
+    clearInterval(autoSlideInterval);
+  }
+}
 
 prevButton.addEventListener('click', () => {
   changeSlide(-1);
-  clearInterval(autoSlideInterval);
+  scaleNavigateButtons(prevButton);
+  startAutoSlider(false);
 });
 
 nextButton.addEventListener('click', () => {
   changeSlide(1);
-  clearInterval(autoSlideInterval);
+  scaleNavigateButtons(nextButton);
+  startAutoSlider(false);
 });
 
-function autoChangeSlide() {
-  autoSlideInterval = setInterval(() => {
-    changeSlide(1);
-  }, 4000);
+setTimeout(() => startAutoSlider(true), 6000);
+
+
+// BUTTON ANIMATION
+
+const mainButton = document.querySelector('#shopButton');
+let intervalID;
+
+function changeButtonSize() {
+  gsap.to(mainButton, {
+    scale: 1.1,
+    duration: 1,
+    onComplete: function () {
+      gsap.to(mainButton, {
+        scale: 1,
+        duration: 1,
+      });
+    }
+  });
 }
 
-slider.addEventListener('mousedown', () => {
-  clearInterval(autoSlideInterval);
+function startButtonAnimation(action) {
+  if (action === true) {
+    intervalID = setInterval(changeButtonSize, 2000);
+  } else {
+    clearInterval(intervalID);
+  }
+}
+
+startButtonAnimation(true);
+
+mainButton.addEventListener('mouseenter', () => {
+  startButtonAnimation(false);
 });
 
-slider.addEventListener('touchstart', () => {
-  clearInterval(autoSlideInterval);
+mainButton.addEventListener('mouseleave', () => {
+  startButtonAnimation(true);
 });
-
-slider.addEventListener('mouseup', () => {
-  clearInterval(autoSlideInterval);
-  autoChangeSlide();
-});
-
-slider.addEventListener('touchend', () => {
-  clearInterval(autoSlideInterval);
-  autoChangeSlide();
-});
-
-setTimeout(autoChangeSlide, 6000);
-
