@@ -1,19 +1,21 @@
 @import "./mixins.scss";
 
+@font-face {
+  font-family: 'Samsung One LCG';
+  src: local('../../fonts/SamsungOne-400/Samsung One LCG 400'), local('../../fonts/SamsungOne-400/Samsung-One-LCG-400'),
+      url('../../fonts/SamsungOne-400/SamsungOne-400.woff2') format('woff2'),
+      url('../../fonts/SamsungOne-400/SamsungOne-400.woff') format('woff'),
+      url('../../fonts/SamsungOne-400/SamsungOne-400.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-;
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 p {
   margin: 0;
   padding: 0;
@@ -24,30 +26,25 @@ a {
   display: inline-block;
 }
 
-;
-
 body {
   font-family: 'Samsung Sharp Sans', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: rgba(49, 49, 49, 0.379);
 }
-
-;
 
 .container {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  padding: 30px 50px 5px 30px;
+  padding: 45px 0 5px 45px;
 
   @include onPhone {
     padding: 25px 50px 5px 25px;
   }
 }
-
-;
 
 .slider {
   position: absolute;
@@ -60,7 +57,10 @@ body {
   z-index: 0;
 }
 
-;
+.next {
+  opacity: 0;
+  background-image: url("../../images/slide/second_slide.png");
+}
 
 .left_fon {
   position: absolute;
@@ -70,17 +70,15 @@ body {
   z-index: 1;
 }
 
-;
-
 .header {
   position: absolute;
   width: 100%;
-  height: 48px;
+  height: 43px;
   z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 50px;
+  padding-right: 80px;
 
   @include onDesktop {
     height: 35px;
@@ -91,17 +89,13 @@ body {
   }
 }
 
-;
-
 .logo,
 .logo-img {
   height: 100%;
 }
 
-;
-
 .kitchen-Logo {
-  height: 40px;
+  height: 60px;
 
   @include onTablet {
     height: 30px;
@@ -112,12 +106,10 @@ body {
   }
 }
 
-;
-
 .main_description {
   color: black;
-  font-size: 40px;
-  line-height: 48px;
+  font-size: 60px;
+  line-height: 65px;
   font-weight: 600;
 
   position: absolute;
@@ -146,7 +138,7 @@ body {
   position: absolute;
   bottom: 5px;
   color: rgb(255, 255, 255);
-  font-size: 12px;
+  font-size: 16px;
 
   @include onPhone {
     font-size: 9px;
@@ -156,22 +148,23 @@ body {
 
 .second_part {
   position: absolute;
-  top: 0;
   bottom: 0;
+  top: 0;
   width: 100%;
 }
 
 .secondary_description {
   position: absolute;
-  bottom: 20%;
+  bottom: 6%;
   color: rgb(255, 255, 255);
   font-weight: 400;
-  font-size: 70px;
+  font-size: 7vw;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
 
   &-price {
+    padding-top: 16px;
     z-index: 999;
-    font-size: 40px;
+    font-size: 4vw;
     font-weight: 600;
 
     @include onPhone {
@@ -195,7 +188,7 @@ body {
 
 .button {
   z-index: 999;
-  font-size: 36px;
+  font-size: 42px;
   background-color: rgba(255, 255, 255, 0);
   opacity: 0;
   text-transform: uppercase;
@@ -224,18 +217,19 @@ body {
   position: absolute;
   bottom: 5px;
   color: rgb(42, 42, 42);
-  font-size: 12px;
+  font-size: 16px;
 
   @include onPhone {
     font-size: 9px;
   }
-};
+}
 
 .text_slider-container {
   color: rgb(104, 104, 104);
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 46px;
+
   position: absolute;
   z-index: 999;
   bottom: 24%;
@@ -250,13 +244,25 @@ body {
     font-size: 20px;
     line-height: 31px;
   }
+}
+
+.text_slider-container {
+  opacity: 0;
 };
 
 .text-block {
-  padding-bottom: 15px;
-};
+  padding-bottom: 45px;
+}
 
+.swipe_button {
+  font-family: 'Samsung One LCG', sans-serif;
+  border: none;
+  background: none;
+  padding: 5px;
+  font-size: 35px;
+  color: rgb(104, 104, 104);
 
-
-
-
+  &-l::after {
+    content: '<';
+  };
+}
