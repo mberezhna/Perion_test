@@ -1,165 +1,42 @@
+'use strict';
+
+import { gsap } from 'gsap';
+import { sliderContent as imgArr } from '../js/slider_content.js';
+import { isDesktopDevice } from './isDesktopDevice.js';
+import { updateTxtSlide } from './updateTxtSlide.js';
+import { updateImgSlide } from './updateImgSlide.js';
+import { startButtonAnimation } from './buttonAnimation.js';
+import { scaleNavigateButtons } from './scaleNavigateButtons.js';
 import '../styles/style.scss';
-import { gsap } from "gsap";
-import { texts_content, slider_content} from './slider_content.js';
 
-function isMobileDevice() {
-  return window.innerWidth < 768;
-}
-
-function isDesktopDevice() {
-  return !isMobileDevice();
-}
-
+//Loading animation sequence at the first render
 const tl = gsap.timeline();
 
-tl.fromTo('.logo_samsung',
-  {
-    x: -200,
-    y: 20,
-  },
-  {
-    x: 0,
-    y: 20,
-    duration: 1,
-  },
-)
-  .from('.second_part', {
-    xPercent: -110,
-    duration: 1,
-  }, "<")
-  .to('.logo_samsung', {
-    y: 0,
-    duration: 1,
-  })
-  .from('.main_description-1line', {
-    xPercent: -200,
-    duration: 1,
-     delay: 0.2,
-  })
-  .from('.main_description-2line', {
-    xPercent: -200,
-    duration: 1,
-    delay: 0.2,
-  }, "<")
-  .from('.main_description-3line', {
-    xPercent: -200,
-    duration: 1,
-    delay: 0.4,
-  }, "<")
-  .to('.left_fon', {
-    width: '50%',
-    duration: 1,
-  })
-  .call(() => {
-    if (isDesktopDevice()) {
-      gsap.to('.slider', {
-        width: '50%',
-        backgroundPosition: '60% 30%',
-        right: 0,
-        duration: 1,
-      }, "<");
-    }
-  })
-  .to('.second_part', {
-    opacity: 0,
-    duration: 0.2,
-  })
-  .to('.button', {
-    opacity: 1,
-    duration: 0.4,
-  })
-  .to('.small_massage-slide', {
-    opacity: 1,
-    duration: 0.4,
-  })
-  .to('.text_slider-container', {
-    opacity: 1,
-    duration: 0.4,
-  }, "<");
+tl
+.fromTo('.brand-logo', { x: -200, y: 20 }, { x: 0, y: 20, duration: 1, delay: 0.2 })
+.from('.additional-info', { xPercent: -110, duration: 1}, '<')
+.to('.brand-logo', { y: 0, duration: 1, delay: 1}, '<')
 
-const button = document.querySelector('.button');
+.from('.main_description-1line', { xPercent: -200, duration: 1, delay: 0.2 })
+.from('.main_description-2line', { xPercent: -200, duration: 1, delay: 0.2 }, '<')
+.from('.main_description-3line', { xPercent: -200, duration: 1, delay: 0.4 }, '<')
 
-button.addEventListener('click', function () {
-  window.open('#');
-  gsap.to('.button', {
-    backgroundColor: '#dcdcdc',
-    duration: 0.5,
-    onComplete: function () {
-      gsap.to('.button', {
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        duration: 0.5
-      });
-    }
-  });
-});
+.call(() => {
+  if (isDesktopDevice()) {
+    gsap.to('.left-background', { width: '50%', duration: 1 });
+    gsap.to('.slider-background', 
+      { width: '50%', backgroundPosition: '60% 30%', right: 0, duration: 1 });
+  }
+})
+.to('.additional-info', { opacity: 0, duration: 0.2 })
+.to('.button', { opacity: 1, duration: 0.4 })
+.to('.small_massage-slide', { opacity: 1, duration: 0.4 })
+.to('.slider-text', { opacity: 1, duration: 0.4 }, '<');
 
-const textBlock = document.querySelector('.text-block');
-const mainDescription = document.querySelector('.main_description');
-const counterElement = document.getElementById('counter');
-const textInTextBlock = document.getElementById('text-block-txt')
-const slider = document.querySelector('.slider');
+// Slider
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
-const link = document.querySelector('.text-block-link');
-const textsArr = texts_content;
-const imgArr = slider_content;
 let currentSliderIndex = 0;
-let autoSlideInterval;
-
-function updateTxtSlide() {
-  gsap.to(textBlock, { opacity: 0, duration: 0.3, onComplete: () => {
-    const textContent = textsArr[currentSliderIndex];
-    const linkContent = `<a href="https://www.samsung.com/ua/" class="text-block-link">Read More...</a>`;
-    textInTextBlock.innerHTML = `${textContent} ${linkContent}`;
-    gsap.to(textBlock, { opacity: 1, duration: 0.3 });
-  }});
-    
-  counterElement.textContent = `${currentSliderIndex + 1}/${textsArr.length}`;
-
-  if (currentSliderIndex === 3) {
-    gsap.to(mainDescription, {
-      yPercent: -20,
-      duration: 0.3,
-    });
-  } else {
-    gsap.to(mainDescription, {
-      yPercent: 20,
-      duration: 0.3,
-    });
-  }
-}
-
-let isSlideVisible = true;
-
-function updateImgSlide() {
-  const firstFrame = document.querySelector('.slider.first');
-  const secondFrame = document.querySelector('.slider.next');
-
-  const opacityFirstFrame = isSlideVisible ? 0 : 1;
-  const opacitySecondFrame = isSlideVisible ? 1 : 0;
-
-  if (getComputedStyle(firstFrame).opacity === '0') {
-    slider.style.backgroundImage = `url(${imgArr[currentSliderIndex]})`;
-  };
-
-  if (getComputedStyle(secondFrame).opacity === '0') {
-    secondFrame.style.backgroundImage = `url(${imgArr[currentSliderIndex]})`;
-  };
-
-  gsap.to(firstFrame, {
-    opacity: opacityFirstFrame,
-    backgroundPositionY: '90%',
-    duration: 0.5,
-  });
-
-  gsap.to(secondFrame, {
-    opacity: opacitySecondFrame,
-    backgroundPositionY: '90%',
-    duration: 0.5,
-  });
-
-  isSlideVisible = !isSlideVisible;
-}
 
 function changeSlide(movSide) {
   if (currentSliderIndex + movSide > imgArr.length - 1) {
@@ -167,36 +44,24 @@ function changeSlide(movSide) {
   } else if (currentSliderIndex + movSide < 0) {
     currentSliderIndex = imgArr.length - 1;
   } else {
-    currentSliderIndex = (currentSliderIndex + movSide);
+    currentSliderIndex = currentSliderIndex + movSide;
   };
 
-  updateTxtSlide();
-  updateImgSlide();
-}
-
-function scaleNavigateButtons(button) {
-  gsap.to(button, {
-    scale: 0.8,
-    duration: 0.3,
-    onComplete: function () {
-      gsap.to(button, {
-        scale: 1,
-        duration: 0.3,
-      });
-    }
-  });
-}
-
+  updateTxtSlide(currentSliderIndex);
+  updateImgSlide(currentSliderIndex);
+};
 
 function startAutoSlider(action) {
+  let autoSlideInterval;
+
   if (action) {
     autoSlideInterval = setInterval(() => {
       changeSlide(1);
     }, 4000);
   } else {
     clearInterval(autoSlideInterval);
-  }
-}
+  };
+};
 
 prevButton.addEventListener('click', () => {
   changeSlide(-1);
@@ -212,38 +77,30 @@ nextButton.addEventListener('click', () => {
 
 setTimeout(() => startAutoSlider(true), 6000);
 
-// BUTTON ANIMATION
-
-const mainButton = document.querySelector('#shopButton');
-let intervalID;
-
-function changeButtonSize() {
-  gsap.to(mainButton, {
-    scale: 1.1,
-    duration: 1,
-    onComplete: function () {
-      gsap.to(mainButton, {
-        scale: 1,
-        duration: 1,
-      });
-    }
-  });
-}
-
-function startButtonAnimation(action) {
-  if (action === true) {
-    intervalID = setInterval(changeButtonSize, 2000);
-  } else {
-    clearInterval(intervalID);
-  }
-}
-
+// Button animation
+const shopButton = document.querySelector('#shopButton');
 startButtonAnimation(true);
 
-mainButton.addEventListener('mouseenter', () => {
+shopButton.addEventListener('mouseenter', () => {
   startButtonAnimation(false);
 });
 
-mainButton.addEventListener('mouseleave', () => {
+shopButton.addEventListener('mouseleave', () => {
   startButtonAnimation(true);
+});
+
+// Button open link
+shopButton.addEventListener('click', function () {
+  window.open('#');
+
+  gsap.to(shopButton, {
+    backgroundColor: '#dcdcdc',
+    duration: 0.5,
+    onComplete: function () {
+      gsap.to(shopButton, {
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        duration: 0.5,
+      });
+    },
+  });
 });

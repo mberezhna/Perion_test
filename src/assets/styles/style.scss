@@ -1,4 +1,6 @@
 @import "./mixins.scss";
+@import "./normalize.scss";
+
 @font-face {
   font-family: 'Samsung One LCG';
   src: local('../../fonts/SamsungOne-400/Samsung One LCG 400'), local('../../fonts/SamsungOne-400/Samsung-One-LCG-400'),
@@ -9,36 +11,12 @@
   font-style: normal;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-p {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-  display: inline-block;
-}
-
-body {
-  font-family: 'Samsung Sharp Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: rgba(49, 49, 49, 0.379);
-}
-
 .container {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   padding: 45px 0 5px 45px;
+  overflow: hidden;
 
   @include onDesktop {
     padding: 35px 0 5px 35px;
@@ -58,37 +36,39 @@ body {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
+
       background-color: rgb(88,88,88);
       background: linear-gradient(0deg, rgba(0,0,0,0.5887605042016807) 0%, rgba(61,61,61,0.5551470588235294) 56%, rgba(162,162,162,0.30024509803921573) 100%);
-      z-index: 0;
     }
   } 
 }
 
-.slider {
+.slider-background {
   position: absolute;
+  z-index: 0;
   width: 100%;
   height: 100vh;
+
   background-image: url("../../images/main_fon.png");
+  background-position: 45% 55%;
   background-size: cover;
   overflow: hidden;
-  background-position: 45% 55%;
-  z-index: 0;
 }
 
 .next {
-  opacity: 0;
   background-image: url("../../images/slide/second_slide.png");
+  opacity: 0;
 }
 
-.left_fon {
+.left-background {
   position: absolute;
+  z-index: 1;
   width: 0%;
   height: 100vh;
   background-color: rgb(255, 255, 255);
-  z-index: 1;
 
   @include onPhone {
     display: none;
@@ -97,13 +77,14 @@ body {
 
 .header {
   position: absolute;
+  z-index: 999;
   width: 100%;
   height: 43px;
-  z-index: 999;
+  padding-right: 80px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 80px;
 
   @include onDesktop {
     height: 30px;
@@ -119,11 +100,6 @@ body {
   }
 }
 
-.logo,
-.logo-img {
-  height: 100%;
-}
-
 .kitchen-Logo {
   height: 60px;
 
@@ -134,24 +110,20 @@ body {
   @include onTablet {
     height: 20px;
   }
-
-  @include onPhone {
-    height: 20px;
-  }
 }
 
 .main_description {
-  color: black;
-  font-size: 60px;
-  line-height: 65px;
-  font-weight: 600;
-
   position: absolute;
   top: 17%;
   z-index: 999;
 
+  font-size: 60px;
+  line-height: 65px;
+  font-weight: 600;
+  
   @include onDesktop {
     top: 15%;
+
     font-size: 30px;
     line-height: 35px;
   }
@@ -163,6 +135,7 @@ body {
 
   @include onPhone {
     top: 10%;
+
     font-size: 20px;
     line-height: 32px;
     color: rgb(255, 255, 255);
@@ -171,8 +144,9 @@ body {
 }
 
 .small_massage {
-  position: absolute;
   bottom: 5px;
+  position: absolute;
+
   color: rgb(255, 255, 255);
   font-size: 16px;
 
@@ -185,20 +159,31 @@ body {
   }
 
   @include onPhone {
-    padding-left: 20px;
+    opacity: 0;
   }
 }
 
-.second_part {
+.small_massage-slide{
+  z-index: 999;
+  opacity: 0;
+  color: rgb(42, 42, 42);
+
+  @include onPhone {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.additional-info {
   position: absolute;
   bottom: 0;
   top: 0;
   width: 100%;
 }
 
-.secondary_description {
+.additional-product {
   position: absolute;
   bottom: 15%;
+
   color: rgb(255, 255, 255);
   font-weight: 400;
   font-size: 7vw;
@@ -216,120 +201,106 @@ body {
   @include onPhone {
     bottom: 20%;
     width: 90%;
+
     font-size: 40px;
     padding-left: 20px;
   }
+}
 
-  &-price {
-    padding-top: 16px;
-    z-index: 999;
-    font-size: 4vw;
-    font-weight: 600;
+.additional-price {
+  z-index: 999;
+  padding-top: 16px;
 
-    @include onDesktop {
-      font-size: 3vw;
-      padding-top: 6px;
-    }
+  font-size: 4vw;
+  font-weight: 600;
 
-    @include onTablet {
-      padding-top: 0;
-    }
+  @include onDesktop {
+    padding-top: 6px;
+    font-size: 3vw;
+  }
 
-    @include onPhone {
-      font-size: 23px;
-    }
+  @include onTablet {
+    padding-top: 0;
+  }
+
+  @include onPhone {
+    font-size: 23px;
   }
 }
 
 .button {
-  z-index: 999;
-  font-size: 42px;
-  background-color: rgba(255, 255, 255, 0);
-  opacity: 0;
-  text-transform: uppercase;
-  width: 25%;
-  height: 80px;
-  border: 3px solid rgb(41, 41, 41);
-  border-radius: 50px;
   position: absolute;
   bottom: 10%;
+  z-index: 999;
+  opacity: 0;
+  width: 25%;
+  height: 80px;
+
+  font-size: 42px;
+  background-color: rgba(255, 255, 255, 0);
+  text-transform: uppercase;
+  border: 3px solid rgb(41, 41, 41);
+  border-radius: 50px;
   cursor: pointer;
 
   @include onDesktop {
-    font-size: 30px;
-    height: 60px;
     bottom: 8%;
+    height: 60px;
+    font-size: 30px;
   }
 
   @include onTablet {
-    font-size: 20px;
-    height: 32px;
-    width: 20%;
     bottom: 7%;
+    width: 20%;
+    height: 32px;
+    font-size: 20px;
   }
 
   @include onPhone {
+    bottom: 10%;
+    height: 40px;
+    width: 80%;
+
     color: rgb(255, 255, 255);
     border: 3px solid rgb(255, 255, 255);
     font-size: 20px;
-    height: 40px;
-    width: 80%;
-    bottom: 10%;
   }
 }
 
-.small_massage-slide{
-  z-index: 999;
-  opacity: 0;
+.slider-text {
   position: absolute;
-  bottom: 5px;
-  color: rgb(42, 42, 42);
-  font-size: 16px;
+  z-index: 999;
+  bottom: 24%;
+  width: 40%;
+  opacity: 0;
 
-  @include onDesktop {
-    font-size: 10px;
-  }
-
-  @include onTablet {
-    font-size: 8px;
-  }
-}
-
-.text_slider-container {
   color: rgb(104, 104, 104);
   font-size: 28px;
   font-weight: 500;
   line-height: 46px;
 
-  position: absolute;
-  z-index: 999;
-  bottom: 24%;
-  width: 40%;
 
   @include onDesktop {
+    bottom: 20%;
     font-size: 18px;
     line-height: 30px;
-    bottom: 20%;
   }
 
   @include onTablet {
+    bottom: 16%;
     font-size: 12px;
     line-height: 18px;
-    bottom: 16%;
   }
 
   @include onPhone {
+    bottom: 20%;
+    width: 90%;
+
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.244);
     font-size: 14px;
     line-height: 31px;
-    bottom: 20%;
-    width: 90%;
   }
-}
-
-.text_slider-container {
-  opacity: 0;
 }
 
 .text-block {
@@ -353,10 +324,10 @@ body {
 }
 
 .swipe_button {
+  padding: 5px;
   font-family: 'Samsung One LCG', sans-serif;
   border: none;
   background: none;
-  padding: 5px;
   font-size: 35px;
   color: rgb(104, 104, 104);
 
