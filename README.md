@@ -3,11 +3,10 @@
 [Page grabber] : https://drive.google.com/file/d/1h3M0zr87RvH8kETkkm_242JfoXOmFi_c/view?usp=sharing<br>
 [Video_example]: https://drive.google.com/file/d/1yIbQ5WWyrbtRQuYgug--3kSW5o0jfIXd/view?usp=sharing
 
-Збірка проекту
 Для збірки проекту використовуйте наступні команди:
 
 npm run build: Збирає проект та створює бандли JavaScript та CSS у директорії dist.
-**npm start**: Запускає режим розробки з Webpack Dev Server, який автоматично перезавантажує сторінку після збірки змін.
+npm start: Запускає режим розробки з Webpack Dev Server, який автоматично перезавантажує сторінку після збірки змін.
 
 Налаштування середовища розробки
 Для розробки та запуску проекту "Perion_test" необхідно мати наступні компоненти:
